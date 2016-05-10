@@ -61,6 +61,7 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
       $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
     }
     $localStorage[$cookies.get("username")].credit = $localStorage[$cookies.get("username")].credit|| 0;
+      $scope.currentcredit =   $localStorage[$cookies.get("username")].credit;
       $state.go('home.information');
 
 
