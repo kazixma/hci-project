@@ -52,16 +52,17 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
       $scope.usingcookie = $cookies.get('username');
       console.log($scope.user.username);
       $localStorage[$cookies.get("username")]  = $localStorage[$cookies.get("username")] || {};
-    if($localStorage[$cookies.get("username")].enroll == undefined){
-      $localStorage[$cookies.get("username")].enroll = [];
-      $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
+      if($localStorage[$cookies.get("username")].enroll == undefined){
+        $localStorage[$cookies.get("username")].enroll = [];
+        $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
 
-    }else{
-      $localStorage[$cookies.get("username")].enroll = $localStorage[$cookies.get("username")].enroll;
-      $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
-    }
-    $localStorage[$cookies.get("username")].credit = $localStorage[$cookies.get("username")].credit|| 0;
+      }else{
+        $localStorage[$cookies.get("username")].enroll = $localStorage[$cookies.get("username")].enroll;
+        $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
+      }
+      $localStorage[$cookies.get("username")].credit = $localStorage[$cookies.get("username")].credit|| 0;
       $scope.credit =   $localStorage[$cookies.get("username")].credit;
+      $scope.jsonexport = JSON.stringify($scope.courseenroll);
       $state.go('home.information');
 
 
@@ -84,8 +85,8 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
 
   }
   $scope.isActive = function(item) {
-       return $scope.title === item;
-};
+    return $scope.title === item;
+  };
   $scope.enroll = function(){
     $('#information').removeClass('active');
     $('#enroll').addClass('active');
@@ -166,7 +167,7 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
 
       }
     }else{
-       console.log("more than 23");
+      console.log("more than 23");
 
       if(!containsObject(data,$scope.courseenroll)){
         $scope.showmessagemore = true;
@@ -177,8 +178,8 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
 
       }else{
         $scope.showmessagemore = false;
-          $scope.showmessagesame = true;
-          alert("Unable to register The maximum credit.");
+        $scope.showmessagesame = true;
+        alert("Unable to register The maximum credit.");
 
 
       }
