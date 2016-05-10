@@ -30,6 +30,7 @@ angular.module('todoApp')
             parent:home,
             url: '/home.enroll',
             templateUrl: 'src/view/home.enroll.html',
+            activetab: 'home.enroll'
 
 
   };
@@ -39,7 +40,8 @@ angular.module('todoApp')
             parent:home,
             url: '/home.information',
             templateUrl: 'src/view/home.information.html',
-        
+            activetab: 'home.information'
+
 
 
 

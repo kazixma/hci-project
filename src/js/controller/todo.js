@@ -5,6 +5,7 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
   $scope.usingcookie = $cookies.get('username');
 
 
+
   $localStorage[$cookies.get("username")]  = $localStorage[$cookies.get("username")] || {};
 
   if($localStorage[$cookies.get("username")].enroll == undefined){
@@ -69,12 +70,18 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
 
 
   }
+  $scope.isActive = function(item) {
+       return $scope.title === item;
+};
   $scope.enroll = function(){
-
+    $('#information').removeClass('active');
+    $('#enroll').addClass('active');
     $state.go('home.enroll');
 
   }
   $scope.information = function(){
+    $('#enroll').removeClass('active');
+    $('#information').addClass('active');
     $state.go('home.information');
 
   }
@@ -112,6 +119,8 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
   $scope.closedialog = function(){
 
     $scope.isshowdialog =false;
+    $scope.showmessagemore = false;
+    $scope.showmessagesame = false;
     console.log($scope.isshowdialog);
 
 
@@ -137,13 +146,29 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
         $localStorage[$cookies.get("username")].enroll= $scope.courseenroll;
         $localStorage[$cookies.get("username")].credit = $scope.credit;
         $scope.jsonexport = JSON.stringify($scope.courseenroll);
+        $scope.showmessagesame = false;
       }else{
-        alert("Same course");
+        alert("You have to enroll for this course.");
+        $scope.showmessagesame = true;
 
       }
     }else{
-      console.log("more than 23");
-      alert("More than 23 credit");
+       console.log("more than 23");
+
+      if(!containsObject(data,$scope.courseenroll)){
+        $scope.showmessagemore = true;
+        $scope.showmessagesame = false;
+        alert("You have to enroll for this course.");
+
+
+
+      }else{
+        $scope.showmessagemore = false;
+          $scope.showmessagesame = true;
+          alert("Unable to register The maximum credit.");
+
+
+      }
 
     }
 
