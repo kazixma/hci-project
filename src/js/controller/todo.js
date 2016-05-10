@@ -8,17 +8,19 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
 
   $localStorage[$cookies.get("username")]  = $localStorage[$cookies.get("username")] || {};
 
-  if($localStorage[$cookies.get("username")].enroll == undefined){
-    $localStorage[$cookies.get("username")].enroll = [];
-
-  }else{
-    $localStorage[$cookies.get("username")].enroll = $localStorage[$cookies.get("username")].enroll;
-  }
   $localStorage[$cookies.get("username")].credit = $localStorage[$cookies.get("username")].credit|| 0;
 
   console.log($scope.usingcookie);
   if($scope.usingcookie != '' && $scope.usingcookie != undefined ){
     //  $state.go('home.information');
+    if($localStorage[$cookies.get("username")].enroll == undefined){
+      $localStorage[$cookies.get("username")].enroll = [];
+      $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
+
+    }else{
+      $localStorage[$cookies.get("username")].enroll = $localStorage[$cookies.get("username")].enroll;
+      $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
+    }
     $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
     console.log($scope.usingcookie);
     $location.path( "/home/home.information" );
@@ -125,8 +127,6 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
 
 
   }
-  $scope.courseenroll = [];
-  $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
   $scope.jsonexport = JSON.stringify($scope.courseenroll);
   console.log($localStorage[$cookies.get("username")].enroll);
   $scope.enrollcourse = function(name,sec){
