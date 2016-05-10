@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div id="imaginary_container">
+      <div class="input-group stylish-input-group">
+        <input type="text" class="form-control"  placeholder="Search" ng-model="expression" >
+        <span class="input-group-addon">
+          <button type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <table class="table  table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Course Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="c in keys| filter:expression" >
+          <td>{{c}}</td>
+          <td>{{courses[c].name.en}}</td>
+
+          <td><button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="dialog(c)">Info</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <div class="modal fade" id="myModal" role="dialog" ng-show="isshowdialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" ng-click="closedialog()">&times;</button>
+            <h4 class="modal-title">{{coursename}}</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table  table-striped">
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Location</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Instructors</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="c in datainfo" >
+                  <td>{{c.id}}</td>
+                  <td>{{c.location}}</td>
+                  <td>{{c.type}}</td>
+                  <td>{{c.date}}</td>
+                  <td>{{c.instructors[0]}}</td>
+
+                  <td><button type="submit" class="btn btn-info" data-dismiss="modal"ng-click="enrollcourse(coursename,c.id)">Enroll</button></td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div ng-if="datainfo ==null">No course</div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closedialog()">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="col-lg-6">
+    <div style="margin-top:5%;">
+      <div><h3>Your course</h3></div>
+    <table class="table  table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Course Name</th>
+          <th>Sec</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="c in courseenroll" >
+          <td>{{c.courseid}}</td>
+          <td>{{c.coursename}}</td>
+          <td>{{c.section}}</td>
+          <td><button type="submit" class="btn btn-danger" ng-click="dropcourse(courseenroll,$index,c.courseid)">Drop</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exportjson">Export json</button>
+    <div class="modal fade" id="exportjson" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Export Json</h4>
+          </div>
+          <div class="modal-body">
+            {{jsonexport}}
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
