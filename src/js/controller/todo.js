@@ -51,6 +51,16 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
       $cookies.put('username',$scope.user.username);
       $scope.usingcookie = $cookies.get('username');
       console.log($scope.user.username);
+      $localStorage[$cookies.get("username")]  = $localStorage[$cookies.get("username")] || {};
+    if($localStorage[$cookies.get("username")].enroll == undefined){
+      $localStorage[$cookies.get("username")].enroll = [];
+      $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
+
+    }else{
+      $localStorage[$cookies.get("username")].enroll = $localStorage[$cookies.get("username")].enroll;
+      $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
+    }
+    $localStorage[$cookies.get("username")].credit = $localStorage[$cookies.get("username")].credit|| 0;
       $state.go('home.information');
 
 
@@ -145,15 +155,6 @@ angular.module('todoApp', ['ui.router','ngCookies','ngStorage'])
         $scope.credit += $scope.currentcredit;
         //console.log($scope.user.username);
 
-          if($localStorage[$cookies.get("username")].enroll == undefined){
-            $localStorage[$cookies.get("username")].enroll = [];
-            $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
-
-          }else{
-            $localStorage[$cookies.get("username")].enroll = $localStorage[$cookies.get("username")].enroll;
-            $scope.courseenroll = $localStorage[$cookies.get("username")].enroll;
-          }
-          $localStorage[$cookies.get("username")].credit = $localStorage[$cookies.get("username")].credit|| 0;
         $localStorage[$cookies.get("username")].enroll= $scope.courseenroll;
         $localStorage[$cookies.get("username")].credit = $scope.credit;
         $scope.jsonexport = JSON.stringify($scope.courseenroll);
